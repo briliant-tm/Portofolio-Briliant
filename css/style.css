@@ -291,3 +291,19 @@ a { text-decoration: none; }
     display: block;          /* Biar ikon ada di baris sendiri */
     text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); /* Efek glow pada ikon */
 }
+
+/* --- FOOTER STYLE --- */
+footer {
+    width: 100%;
+    background: #111; /* Lebih gelap dari background body */
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: auto; /* Trik agar footer selalu di bawah */
+}
+
+footer p {
+    color: #888;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
