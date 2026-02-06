@@ -1,0 +1,293 @@
+/* --- RESET & GLOBAL --- */
+:root {
+    --primary: #00d2ff;
+    --dark: #1a1a1a;
+    --text-gray: #ccc;
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Rahasia gerakan smooth */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--dark);
+    color: #f4f4f4;
+    overflow-x: hidden;
+}
+
+a { text-decoration: none; }
+
+/* --- NAVBAR (Glassmorphism) --- */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1.2rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(26, 26, 26, 0.85);
+    backdrop-filter: blur(10px); /* Efek kaca buram */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 1000;
+    transition: var(--transition-smooth);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.95rem;
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+/* Garis bawah animasi saat hover */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--primary);
+    transition: var(--transition-smooth);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-links a:hover, 
+.nav-links a.active {
+    color: var(--primary);
+}
+
+.disabled { opacity: 0.3; pointer-events: none; }
+
+/* --- HOME PAGE --- */
+.home-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 0 20px;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+    filter: brightness(0.3);
+    transform: scale(1.1); /* Sedikit zoom untuk efek depth */
+}
+
+/* Animasi Floating untuk Foto Profil */
+@keyframes float {
+    0% { transform: translateY(0px); box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6); }
+    50% { transform: translateY(-15px); box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2); }
+    100% { transform: translateY(0px); box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6); }
+}
+
+.profile-pic {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 3px solid var(--primary);
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    animation: float 6s ease-in-out infinite; /* Foto bergerak naik turun */
+}
+
+/* Animasi Teks Muncul dari Bawah */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.home-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+    opacity: 0; /* Awalnya sembunyi */
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.2s; /* Muncul setelah foto */
+}
+
+.role-text {
+    color: var(--primary);
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    min-height: 1.5em; /* Menjaga tinggi agar tidak layout shift saat ngetik */
+}
+
+.description {
+    max-width: 650px;
+    margin: 0 auto 2.5rem auto;
+    color: var(--text-gray);
+    line-height: 1.8;
+    font-size: 1rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.6s;
+}
+
+/* Tombol Elastis */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--primary);
+    color: var(--dark);
+    border-radius: 50px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: var(--transition-smooth);
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.8s;
+}
+
+.btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    margin-top: 2rem;
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 210, 255, 0.1);
+}
+
+/* --- SKILLS PAGE --- */
+.skills-section {
+    min-height: 100vh;
+    padding: 120px 5% 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    
+    /* BACKGROUND GRADIENT TEXT */
+    background: linear-gradient(to right, #fff, var(--primary));
+    
+    /* --- BARIS PERBAIKAN WARNING --- */
+    -webkit-background-clip: text; /* Untuk Chrome/Safari lama */
+    background-clip: text;         /* Standar W3C (Solusi Warning) */
+    
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback */
+    
+    opacity: 0;
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+/* 2. Tambahan: Kursor Kedip untuk Role (Home Page) */
+.role-text::after {
+    content: '|';
+    margin-left: 5px;
+    animation: blink 0.7s infinite;
+    color: var(--primary);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.skill-card {
+    height: 280px;
+    background-color: #2a2a2a;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+/* Efek Hover Card: Zoom In gambar background */
+.skill-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    border-color: var(--primary);
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px;
+    background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.6), transparent);
+    transform: translateY(10px);
+    transition: var(--transition-smooth);
+}
+
+.skill-card:hover .card-content {
+    transform: translateY(0);
+}
+
+.card-content h3 {
+    color: #fff;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+.card-content p {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
+.card-content i {
+    font-size: 2.5rem;       /* Ukuran ikon */
+    color: var(--primary);   /* Warna biru neon */
+    margin-bottom: 15px;     /* Jarak ikon ke judul */
+    display: block;          /* Biar ikon ada di baris sendiri */
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); /* Efek glow pada ikon */
+}
