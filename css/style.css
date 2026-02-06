@@ -292,108 +292,145 @@ a { text-decoration: none; }
     text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); /* Efek glow pada ikon */
 }
 
-/* --- PROFESSIONAL FOOTER STYLE --- */
+/* --- MODERN CORPORATE FOOTER --- */
 footer {
-    background-color: #0f0f0f; /* Lebih gelap & premium */
+    background-color: #0b0b0b; /* Sangat gelap, hampir hitam */
     color: #b0b0b0;
-    padding: 70px 0 30px; /* Padding besar biar lega */
+    padding-top: 80px;
+    padding-bottom: 30px;
     font-size: 0.9rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
     margin-top: auto;
 }
 
 .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    max-width: 1100px; /* Membatasi lebar agar tidak terlalu ke pinggir */
+    margin: 0 auto;    /* Posisi tengah */
+    padding: 0 40px;   /* Gap dari border kiri-kanan layar */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 40px;
+    gap: 50px;
 }
 
 /* Kolom Footer */
 .footer-col {
     flex: 1;
-    min-width: 250px; /* Agar responsif di HP */
+    min-width: 220px;
 }
 
+/* Judul Kolom */
 .footer-col h4 {
     color: #fff;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    position: relative;
+    font-size: 1.1rem;
     font-weight: 600;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+    position: relative;
+    display: inline-block;
 }
 
-/* Garis kecil di bawah judul kolom */
+/* Aksen Garis Kecil di Bawah Judul */
 .footer-col h4::after {
     content: '';
     position: absolute;
     left: 0;
     bottom: -8px;
-    background-color: var(--primary); /* Garis biru */
     height: 2px;
-    width: 40px;
+    width: 30px;
+    background-color: var(--primary);
+    border-radius: 2px;
 }
 
-.footer-col p {
-    line-height: 1.6;
-    margin-bottom: 15px;
+/* Deskripsi Perusahaan */
+.footer-desc {
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 25px;
+    font-size: 0.85rem;
+    color: #888;
 }
 
-/* List Link di Footer */
-.footer-col ul {
+/* List Link & Kontak */
+.footer-links {
     list-style: none;
 }
 
-.footer-col ul li {
-    margin-bottom: 10px;
+.footer-links li {
+    margin-bottom: 12px;
 }
 
-.footer-col ul li a {
+.footer-links a, 
+.footer-links span {
     color: #b0b0b0;
-    transition: 0.3s;
-    display: inline-block;
-}
-
-.footer-col ul li a:hover {
-    color: var(--primary);
-    padding-left: 5px; /* Efek geser dikit pas hover */
-}
-
-/* Social Icons */
-.social-links a {
-    display: inline-flex;
-    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 300;
+    display: flex;
     align-items: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-    border-radius: 50%;
-    margin-right: 10px;
-    transition: 0.3s;
+    gap: 10px;
 }
 
-.social-links a:hover {
-    background: var(--primary);
+/* Hover Effect: Geser kanan & berubah warna */
+.footer-links a:hover {
+    color: var(--primary);
+    transform: translateX(5px);
+}
+
+.footer-links i {
+    color: var(--primary);
+    font-size: 0.9rem;
+    width: 20px; /* Lebar tetap agar teks rata */
+}
+
+/* Social Media Icons (Modern Minimalist) */
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%; /* Lingkaran */
+    color: #fff;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: var(--primary);
+    border-color: var(--primary);
     color: #000;
     transform: translateY(-3px);
 }
 
-/* Footer Bottom (Copyright) */
+/* Copyright Area */
 .footer-bottom {
-    text-align: center;
-    margin-top: 50px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    font-size: 0.85rem;
+    max-width: 1100px;
+    margin: 60px auto 0;
+    padding: 25px 40px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between; /* Kiri Copyright, Kanan Credit */
+    align-items: center;
+    font-size: 0.8rem;
+    color: #666;
 }
 
-/* Responsive Footer untuk Mobile */
+/* Responsive Tablet/Mobile */
 @media (max-width: 768px) {
     .footer-container {
         flex-direction: column;
+        gap: 40px;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
     }
 }
