@@ -292,18 +292,108 @@ a { text-decoration: none; }
     text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); /* Efek glow pada ikon */
 }
 
-/* --- FOOTER STYLE --- */
+/* --- PROFESSIONAL FOOTER STYLE --- */
 footer {
-    width: 100%;
-    background: #111; /* Lebih gelap dari background body */
-    padding: 20px 0;
-    text-align: center;
+    background-color: #0f0f0f; /* Lebih gelap & premium */
+    color: #b0b0b0;
+    padding: 70px 0 30px; /* Padding besar biar lega */
+    font-size: 0.9rem;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    margin-top: auto; /* Trik agar footer selalu di bawah */
+    margin-top: auto;
 }
 
-footer p {
-    color: #888;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+/* Kolom Footer */
+.footer-col {
+    flex: 1;
+    min-width: 250px; /* Agar responsif di HP */
+}
+
+.footer-col h4 {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    position: relative;
+    font-weight: 600;
+}
+
+/* Garis kecil di bawah judul kolom */
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    background-color: var(--primary); /* Garis biru */
+    height: 2px;
+    width: 40px;
+}
+
+.footer-col p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* List Link di Footer */
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    color: #b0b0b0;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.footer-col ul li a:hover {
+    color: var(--primary);
+    padding-left: 5px; /* Efek geser dikit pas hover */
+}
+
+/* Social Icons */
+.social-links a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border-radius: 50%;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    background: var(--primary);
+    color: #000;
+    transform: translateY(-3px);
+}
+
+/* Footer Bottom (Copyright) */
+.footer-bottom {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.85rem;
+}
+
+/* Responsive Footer untuk Mobile */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+    }
 }
