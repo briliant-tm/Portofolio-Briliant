@@ -106,35 +106,46 @@ ul { list-style: none; }
     overflow: hidden;
 }
 
+/* --- BACKGROUND ANIMASI (FIXED: LEBIH TERANG & VISIBLE) --- */
 .hero-bg {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background-size: cover;
-    background-position: center;
     z-index: -2;
-    background: linear-gradient(-45deg, #020024, #090979, #1c0b3b, #000);
+    
+    /* 1. Warna Gradasi Baru: Biru Tua ke Ungu (Lebih Menyala) */
+    /* Kombinasi: Deep Navy, Purple, dan sedikit sentuhan Cyan gelap */
+    background: linear-gradient(-45deg, #1a1a2e, #16213e, #2a0845, #1f4068);
+    
+    /* 2. Ukuran background */
     background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    filter: brightness(0.2) blur(3px);
-    transform: scale(1.1);
+    
+    /* 3. Animasi: Bergerak smooth */
+    animation: gradientBG 10s ease infinite;
+
+    /* 4. PERBAIKAN PENTING: Brightness dinaikkan dari 0.25 ke 0.7 */
+    /* Blur sedikit agar teks di depannya tetap mudah dibaca */
+    filter: brightness(0.7) blur(1px); 
 }
 
+/* Kunci Gerakan Gradasi */
 @keyframes gradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
+/* OPSI: Pola Jaring (Grid Network) yang lebih terlihat */
 .hero-bg::after {
     content: "";
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
+    /* Pola kotak-kotak tipis transparan */
     background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px; /* Ukuran kotak grid */
     z-index: -1;
 }
 
