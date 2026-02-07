@@ -106,46 +106,46 @@ ul { list-style: none; }
     overflow: hidden;
 }
 
-/* --- BACKGROUND ANIMASI (FIXED: LEBIH TERANG & VISIBLE) --- */
+/* --- 1. BACKGROUND ANIMASI (SHARED) --- */
 .hero-bg {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
     z-index: -2;
-    
-    /* 1. Warna Gradasi Baru: Biru Tua ke Ungu (Lebih Menyala) */
-    /* Kombinasi: Deep Navy, Purple, dan sedikit sentuhan Cyan gelap */
-    background: linear-gradient(-45deg, #1a1a2e, #16213e, #2a0845, #1f4068);
-    
-    /* 2. Ukuran background */
     background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
     
-    /* 3. Animasi: Bergerak smooth */
-    animation: gradientBG 10s ease infinite;
-
-    /* 4. PERBAIKAN PENTING: Brightness dinaikkan dari 0.25 ke 0.7 */
-    /* Blur sedikit agar teks di depannya tetap mudah dibaca */
-    filter: brightness(0.7) blur(1px); 
+    /* Request Anda: Diturunkan jadi 0.5 agar tidak terlalu terang */
+    filter: brightness(0.5); 
 }
 
-/* Kunci Gerakan Gradasi */
+/* Palet Warna HOME (Blue - Purple - Navy) */
+.bg-home {
+    background: linear-gradient(-45deg, #1a1a2e, #16213e, #2a0845, #0f3460);
+}
+
+/* Palet Warna SKILLS (Teal - Dark Slate - Black) */
+/* Masih satu tone (gelap), tapi lebih terasa "Engineering" */
+.bg-skills {
+    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1a1a2e);
+}
+
 @keyframes gradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-/* OPSI: Pola Jaring (Grid Network) yang lebih terlihat */
+/* Grid Overlay (Opsional - Biar tetap ada nuansa network) */
 .hero-bg::after {
     content: "";
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    /* Pola kotak-kotak tipis transparan */
     background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: 50px 50px; /* Ukuran kotak grid */
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
     z-index: -1;
 }
 
@@ -314,6 +314,7 @@ ul { list-style: none; }
     max-width: 1100px;
 }
 
+/* --- 2. PERBAIKAN ANIMASI CARD SKILLS --- */
 .skill-card {
     height: 280px;
     background-color: #222;
@@ -323,12 +324,26 @@ ul { list-style: none; }
     background-size: cover;
     background-position: center;
     border: 1px solid rgba(255,255,255,0.05);
-    transition: var(--transition);
+    
+    /* PENTING: State Awal Harus Tersembunyi! */
+    opacity: 0; 
+    transform: translateY(50px); /* Geser ke bawah sedikit */
+    
+    /* Transisi untuk hover effect tetap ada */
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 
+/* Class ini akan ditambahkan oleh JS saat scroll */
+.skill-card.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Style Hover tetap jalan setelah animasi selesai */
 .skill-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) !important; /* Override posisi visible */
     border-color: var(--primary);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
 
 .card-content {

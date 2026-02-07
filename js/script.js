@@ -35,24 +35,31 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(typeWriter, 500);
     }
 
-    // 3. ANIMASI CARD MUNCUL (KHUSUS HALAMAN SKILLS)
+    // 3. ANIMASI CARD MUNCUL (REVISI STABIL)
     const skillCards = document.querySelectorAll('.skill-card');
     
     if (skillCards.length > 0) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                // Jika card masuk ke layar
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
+                    // Tambahkan class .visible (biar CSS yang menganimasikan)
+                    entry.target.classList.add('visible');
+                    
+                    // Stop observe setelah muncul (biar ga kedip-kedip kalau scroll naik turun)
+                    observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 }); 
+        }, { 
+            threshold: 0.15 // Muncul ketika 15% card terlihat
+        });
 
         skillCards.forEach((card, index) => {
-            card.style.opacity = 0;
-            card.style.transform = 'translateY(50px)';
-            // Muncul berurutan (staggered effect)
-            card.style.transition = `all 0.6s cubic-bezier(0.25, 1, 0.5, 1) ${index * 0.15}s`; 
+            // Kita set delay transisi via JS agar staggered (berurutan)
+            // Card 1: 0.1s, Card 2: 0.2s, dst...
+            card.style.transition = `opacity 0.6s ease-out, transform 0.6s ease-out`;
+            card.style.transitionDelay = `${index * 0.1}s`; 
+            
             observer.observe(card);
         });
     }
