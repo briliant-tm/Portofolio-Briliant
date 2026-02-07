@@ -63,4 +63,46 @@ document.addEventListener('DOMContentLoaded', () => {
             observer.observe(card);
         });
     }
+
+    // 4. ANIMASI HALAMAN ABOUT (Staggered Animation)
+    // Cek apakah kita ada di halaman About?
+    const aboutSection = document.querySelector('.about-section');
+
+    if (aboutSection) {
+        
+        // A. Animasi Teks Utama (Judul & Deskripsi)
+        const textElements = document.querySelectorAll('.reveal-text');
+        textElements.forEach((el, index) => {
+            setTimeout(() => {
+                el.classList.add('active');
+            }, 200 + (index * 100)); // Delay bertahap: 200ms, 300ms, dst
+        });
+
+        // B. Animasi Timeline (Muncul satu per satu)
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.5 }); // Muncul saat 50% terlihat
+
+        timelineItems.forEach((item, index) => {
+            // Beri delay sedikit biar tidak barengan
+            item.style.transitionDelay = `${index * 0.2}s`;
+            timelineObserver.observe(item);
+        });
+
+        // C. Animasi Hobi (Pop-up Cepat)
+        const hobbyTags = document.querySelectorAll('.hobby-tag');
+        // Kita trigger langsung saja setelah teks selesai
+        setTimeout(() => {
+            hobbyTags.forEach((tag, index) => {
+                setTimeout(() => {
+                    tag.classList.add('active');
+                }, index * 100); // Pop.. pop.. pop.. setiap 100ms
+            });
+        }, 1000); // Tunggu 1 detik setelah halaman load
+    }
 });
