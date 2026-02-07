@@ -94,17 +94,16 @@ ul { list-style: none; }
     color: #fff;
 }
 
-/* --- HOME SECTION --- */
+/* --- HOME SECTION (NEW SPLIT LAYOUT) --- */
 .home-section {
-    padding-top: 70px; /* Kompensasi tinggi navbar */
+    padding-top: 80px; /* Kompensasi navbar */
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    align-items: center; /* Vertikal tengah */
+    justify-content: center; /* Horizontal tengah */
     position: relative;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-bottom: 50px;
+    overflow: hidden;
 }
 
 .hero-bg {
@@ -114,87 +113,133 @@ ul { list-style: none; }
     background-size: cover;
     background-position: center;
     z-index: -2;
-    filter: brightness(0.3);
+    filter: brightness(0.25) blur(2px); /* Gelapkan & blur dikit biar konten pop-up */
+    transform: scale(1.1);
 }
 
-.profile-pic {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    border: 3px solid var(--primary);
+/* Wrapper Utama: Pembagi Kiri (Foto) dan Kanan (Teks) */
+.home-content-wrapper {
+    display: flex;
+    align-items: center; /* Sejajar vertikal */
+    gap: 60px; /* Jarak besar antara foto dan teks */
+    max-width: 1200px; /* Lebar maksimal konten agar tidak terlalu lebar di layar besar */
+    width: 90%;
+    z-index: 1;
+}
+
+/* --- BAGIAN KIRI: FOTO PROFIL KOTAK --- */
+.home-left {
+    flex: 1; /* Mengambil ruang secukupnya */
+    display: flex;
+    justify-content: flex-end; /* Mepet ke kanan mendekati teks */
+}
+
+.profile-pic-square {
+    width: 280px; /* Ukuran lebih besar agar padat */
+    height: 280px;
     object-fit: cover;
-    margin-bottom: 1.5rem;
-    animation: float 6s ease-in-out infinite;
+    border-radius: 30px; /* KOTAK DENGAN SUDUT TUMPUL (SMOOTH) */
+    border: 3px solid rgba(0, 210, 255, 0.5); /* Border biru transparan */
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); /* Bayangan lembut */
+    /* Animasi floating yang lebih halus untuk kotak */
+    animation: floatSquare 8s ease-in-out infinite;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+@keyframes floatSquare {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(1deg); } /* Sedikit miring biar dinamis */
 }
 
-.home-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+/* --- BAGIAN KANAN: TEKS & LABEL --- */
+.home-right {
+    flex: 1.5; /* Bagian teks lebih lebar dari foto */
+    text-align: left; /* SEMUA TEKS RATA KIRI */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Jarak antar label */
+}
+
+/* LABEL KACA (GLASSMORPHISM CARD) UNTUK MEMBUNGKUS KONTEN */
+.info-label {
+    background: rgba(255, 255, 255, 0.04); /* Latar belakang ultra transparan */
+    backdrop-filter: blur(15px); /* Efek blur kaca di belakangnya */
+    -webkit-backdrop-filter: blur(15px); /* Support Safari */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Garis tepi kaca tipis */
+    padding: 25px 35px; /* Padding besar biar 'padat' */
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2); /* Bayangan 3D halus */
+    
+    /* Animasi muncul */
+    opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Staggered Delay: Muncul berurutan dari atas ke bawah */
+.label-name { animation-delay: 0.2s; }
+.label-role { animation-delay: 0.4s; padding: 15px 35px; /* Role label lebih tipis */ }
+.label-desc { animation-delay: 0.6s; }
+.cta-group  { animation-delay: 0.8s; margin-top: 10px; }
+
+/* Typography yang Lebih Besar */
+.home-right h1 {
+    font-size: 3.2rem; /* Nama sangat besar */
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -1px;
+    line-height: 1.1;
 }
 
 .role-text {
     color: var(--primary);
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.4rem; /* Role lebih besar */
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    min-height: 1.5em;
+    letter-spacing: 3px;
+    margin: 0;
+    display: inline-block;
 }
-
-/* Kursor kedip */
-.role-text::after {
-    content: '|';
-    margin-left: 5px;
-    animation: blink 0.8s infinite;
-    color: #fff;
-}
-
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
 .description {
-    max-width: 700px;
-    margin: 0 auto 2rem auto;
-    color: #ccc;
-    line-height: 1.7;
-    animation: fadeInUp 0.8s ease-out forwards;
-    animation-delay: 0.3s;
-    opacity: 0;
+    color: #ddd; /* Warna lebih terang dikit biar kontras di kaca */
+    font-size: 1.1rem; /* Deskripsi lebih besar */
+    line-height: 1.8;
+    margin: 0;
+    max-width: 100%; /* Memenuhi lebar label */
 }
 
+/* Tombol */
 .btn {
     display: inline-block;
-    padding: 12px 30px;
+    padding: 15px 35px; /* Tombol lebih besar */
     background: var(--primary);
     color: var(--dark);
     border-radius: 50px;
     font-weight: 600;
+    font-size: 1rem;
     transition: var(--transition);
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-    animation-delay: 0.5s;
+    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.2);
 }
-.btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3); }
 
-.btn-secondary {
-    background: transparent;
-    border: 1px solid var(--primary);
-    color: var(--primary);
-    margin-top: 30px;
-    opacity: 1; /* Reset opacity untuk tombol back */
-    animation: none;
+.btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 210, 255, 0.4);
 }
-.btn-secondary:hover { background: rgba(0, 210, 255, 0.1); }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* --- RESPONSIVE HOME UNTUK HP --- */
+@media (max-width: 968px) { /* Tablet & HP */
+    .home-content-wrapper {
+        flex-direction: column; /* Kembali jadi atas-bawah */
+        text-align: center; /* Kembali rata tengah */
+        gap: 30px;
+        margin-top: 30px;
+    }
+    
+    .home-left { justify-content: center; }
+    .profile-pic-square { width: 220px; height: 220px; }
+    
+    .home-right { text-align: center; align-items: center; }
+    .home-right h1 { font-size: 2.5rem; }
+    .info-label { padding: 20px; width: 100%; } /* Label memenuhi lebar HP */
 }
 
 /* --- SKILLS SECTION --- */
