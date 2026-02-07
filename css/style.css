@@ -94,13 +94,13 @@ ul { list-style: none; }
     color: #fff;
 }
 
-/* --- HOME SECTION (NEW SPLIT LAYOUT) --- */
+/* --- HOME SECTION (NEW SPLIT LAYOUT - FIXED) --- */
 .home-section {
-    padding-top: 80px; /* Kompensasi navbar */
+    padding-top: 80px;
     min-height: 100vh;
     display: flex;
-    align-items: center; /* Vertikal tengah */
-    justify-content: center; /* Horizontal tengah */
+    align-items: center;
+    justify-content: center;
     position: relative;
     padding-bottom: 50px;
     overflow: hidden;
@@ -113,133 +113,145 @@ ul { list-style: none; }
     background-size: cover;
     background-position: center;
     z-index: -2;
-    filter: brightness(0.25) blur(2px); /* Gelapkan & blur dikit biar konten pop-up */
+    filter: brightness(0.25) blur(2px);
     transform: scale(1.1);
 }
 
-/* Wrapper Utama: Pembagi Kiri (Foto) dan Kanan (Teks) */
+/* Wrapper Utama Flexbox */
 .home-content-wrapper {
     display: flex;
-    align-items: center; /* Sejajar vertikal */
-    gap: 60px; /* Jarak besar antara foto dan teks */
-    max-width: 1200px; /* Lebar maksimal konten agar tidak terlalu lebar di layar besar */
+    align-items: center; /* Vertikal tengah */
+    gap: 60px; /* Jarak kiri-kanan */
+    max-width: 1200px;
     width: 90%;
     z-index: 1;
 }
 
-/* --- BAGIAN KIRI: FOTO PROFIL KOTAK --- */
+/* --- BAGIAN KIRI: FOTO KOTAK --- */
 .home-left {
-    flex: 1; /* Mengambil ruang secukupnya */
+    flex: 1;
     display: flex;
-    justify-content: flex-end; /* Mepet ke kanan mendekati teks */
+    justify-content: flex-end; /* Foto mepet ke arah teks */
 }
 
 .profile-pic-square {
-    width: 280px; /* Ukuran lebih besar agar padat */
-    height: 280px;
+    width: 320px; /* Ukuran Besar */
+    height: 320px;
     object-fit: cover;
-    border-radius: 30px; /* KOTAK DENGAN SUDUT TUMPUL (SMOOTH) */
-    border: 3px solid rgba(0, 210, 255, 0.5); /* Border biru transparan */
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); /* Bayangan lembut */
-    /* Animasi floating yang lebih halus untuk kotak */
-    animation: floatSquare 8s ease-in-out infinite;
+    border-radius: 35px; /* Sudut Tumpul (Smooth) */
+    border: 2px solid rgba(0, 210, 255, 0.3);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    /* Animasi Floating */
+    animation: floatSquare 7s ease-in-out infinite;
 }
 
 @keyframes floatSquare {
     0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(1deg); } /* Sedikit miring biar dinamis */
+    50% { transform: translateY(-15px) rotate(1deg); }
 }
 
-/* --- BAGIAN KANAN: TEKS & LABEL --- */
+/* --- BAGIAN KANAN: TEKS --- */
 .home-right {
-    flex: 1.5; /* Bagian teks lebih lebar dari foto */
-    text-align: left; /* SEMUA TEKS RATA KIRI */
+    flex: 1.5; /* Bagian teks lebih lebar */
+    text-align: left; /* Rata Kiri */
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Jarak antar label */
+    gap: 25px; /* Jarak antar kotak label */
 }
 
-/* LABEL KACA (GLASSMORPHISM CARD) UNTUK MEMBUNGKUS KONTEN */
+/* Label Kaca (Glass Effect) */
 .info-label {
-    background: rgba(255, 255, 255, 0.04); /* Latar belakang ultra transparan */
-    backdrop-filter: blur(15px); /* Efek blur kaca di belakangnya */
-    -webkit-backdrop-filter: blur(15px); /* Support Safari */
-    border: 1px solid rgba(255, 255, 255, 0.08); /* Garis tepi kaca tipis */
-    padding: 25px 35px; /* Padding besar biar 'padat' */
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2); /* Bayangan 3D halus */
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 20px 30px;
+    border-radius: 15px;
+    width: fit-content; /* Lebar menyesuaikan isi teks */
     
-    /* Animasi muncul */
-    opacity: 0;
+    /* Animasi Muncul */
+    opacity: 0; /* Awalnya sembunyi */
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* Staggered Delay: Muncul berurutan dari atas ke bawah */
-.label-name { animation-delay: 0.2s; }
-.label-role { animation-delay: 0.4s; padding: 15px 35px; /* Role label lebih tipis */ }
-.label-desc { animation-delay: 0.6s; }
-.cta-group  { animation-delay: 0.8s; margin-top: 10px; }
-
-/* Typography yang Lebih Besar */
+/* Pengaturan Teks di dalam Label */
 .home-right h1 {
-    font-size: 3.2rem; /* Nama sangat besar */
+    font-size: 2.5rem;
     font-weight: 700;
     margin: 0;
-    letter-spacing: -1px;
-    line-height: 1.1;
+    line-height: 1.2;
+    color: #fff;
 }
 
 .role-text {
+    font-size: 1.2rem;
     color: var(--primary);
-    font-size: 1.4rem; /* Role lebih besar */
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     margin: 0;
-    display: inline-block;
 }
 
 .description {
-    color: #ddd; /* Warna lebih terang dikit biar kontras di kaca */
-    font-size: 1.1rem; /* Deskripsi lebih besar */
-    line-height: 1.8;
+    color: #ccc;
+    font-size: 1rem;
+    line-height: 1.6;
     margin: 0;
-    max-width: 100%; /* Memenuhi lebar label */
+    max-width: 600px;
 }
 
-/* Tombol */
+/* Urutan Muncul (Delay) */
+.label-name { animation-delay: 0.2s; }
+.label-role { animation-delay: 0.4s; }
+.label-desc { animation-delay: 0.6s; }
+
+/* Tombol CTA */
+.cta-group {
+    margin-top: 10px;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.8s;
+}
+
 .btn {
-    display: inline-block;
-    padding: 15px 35px; /* Tombol lebih besar */
+    padding: 12px 35px;
     background: var(--primary);
-    color: var(--dark);
-    border-radius: 50px;
+    color: #000;
     font-weight: 600;
-    font-size: 1rem;
-    transition: var(--transition);
-    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.2);
+    border-radius: 50px;
+    transition: 0.3s;
+    display: inline-block;
 }
 
 .btn:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 10px 25px rgba(0, 210, 255, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0, 210, 255, 0.4);
 }
 
-/* --- RESPONSIVE HOME UNTUK HP --- */
-@media (max-width: 968px) { /* Tablet & HP */
-    .home-content-wrapper {
-        flex-direction: column; /* Kembali jadi atas-bawah */
-        text-align: center; /* Kembali rata tengah */
-        gap: 30px;
-        margin-top: 30px;
+/* --- INI YANG HILANG KEMARIN (KEYFRAMES FADE IN) --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px); /* Muncul dari bawah */
     }
-    
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Posisi normal */
+    }
+}
+
+/* Responsive Mobile */
+@media (max-width: 968px) {
+    .home-content-wrapper {
+        flex-direction: column;
+        text-align: center;
+        margin-top: 20px;
+    }
     .home-left { justify-content: center; }
-    .profile-pic-square { width: 220px; height: 220px; }
+    .profile-pic-square { width: 200px; height: 200px; }
     
-    .home-right { text-align: center; align-items: center; }
-    .home-right h1 { font-size: 2.5rem; }
-    .info-label { padding: 20px; width: 100%; } /* Label memenuhi lebar HP */
+    .home-right { align-items: center; }
+    .info-label { width: 100%; text-align: center; }
+    .home-right h1 { font-size: 1.8rem; }
 }
 
 /* --- SKILLS SECTION --- */
