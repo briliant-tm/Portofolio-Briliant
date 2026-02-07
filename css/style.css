@@ -365,6 +365,153 @@ ul { list-style: none; }
 .card-content h3 { font-size: 1.2rem; margin-bottom: 5px; color: #fff; }
 .card-content p { font-size: 0.85rem; color: #bbb; }
 
+/* --- ABOUT SECTION (CINEMATIC SPLIT) --- */
+.about-section {
+    min-height: 100vh;
+    padding-top: 80px;
+    padding-bottom: 50px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    
+    /* LOGIKA BACKGROUND: */
+    /* Layer 1 (Atas): Gradient dari Transparan (Kiri) ke Hitam Pekat (Tengah-Kanan) */
+    /* Layer 2 (Bawah): Foto Profil Anda */
+    background: linear-gradient(to right, 
+        rgba(26, 26, 26, 0.1) 0%, 
+        rgba(26, 26, 26, 0.9) 35%, 
+        var(--dark) 60%, 
+        var(--dark) 100%),
+        url('../assets/images/profile.jpg');
+        
+    background-size: cover; /* Foto menutupi area */
+    background-position: left center; /* Fokus foto di kiri */
+    background-attachment: fixed; /* Efek Parallax (Foto diam saat scroll) */
+}
+
+/* Container Konten (Hanya di sebelah Kanan) */
+.about-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end; /* Dorong konten ke KANAN */
+    padding: 0 5%;
+}
+
+.about-text-wrapper {
+    width: 60%; /* Lebar area teks (sisanya 40% untuk foto di kiri) */
+    color: #ccc;
+    animation: fadeInRight 1s ease-out;
+}
+
+@keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.about-title {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.about-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: #fff;
+    border-left: 4px solid var(--primary);
+    padding-left: 15px;
+}
+
+/* --- TIMELINE PENDIDIKAN --- */
+.timeline {
+    margin: 30px 0;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    padding-left: 20px;
+    position: relative;
+}
+
+.timeline-item {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+/* Titik Bulat di Garis Timeline */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -26px; /* Menggeser titik pas ke garis */
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.year {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.school {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* --- HOBBY & DESC --- */
+.bio-desc {
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.hobbies-grid {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.hobby-tag {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.3s;
+}
+
+.hobby-tag:hover {
+    border-color: var(--primary);
+    background: rgba(0, 210, 255, 0.1);
+    color: #fff;
+}
+
+/* Responsive Mobile (Foto pindah ke atas/hilang) */
+@media (max-width: 768px) {
+    .about-section {
+        background-position: center top; /* Foto geser */
+        /* Gelapkan seluruh foto di HP agar teks terbaca */
+        background: linear-gradient(to bottom, 
+            rgba(26,26,26,0.7), 
+            var(--dark)),
+            url('../assets/images/profile.jpg');
+        background-size: cover;
+    }
+    
+    .about-text-wrapper {
+        width: 100%; /* Teks memenuhi layar */
+    }
+}
+
 /* --- FOOTER (DARK GREY MODERN) --- */
 footer {
     width: 100%;
