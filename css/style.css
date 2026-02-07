@@ -374,16 +374,6 @@ ul { list-style: none; }
     align-items: center;
     position: relative;
     overflow: hidden;
-    
-    /* LOGIKA BACKGROUND: */
-    /* Layer 1 (Atas): Gradient dari Transparan (Kiri) ke Hitam Pekat (Tengah-Kanan) */
-    /* Layer 2 (Bawah): Foto Profil Anda */
-    background: linear-gradient(to right, 
-        rgba(26, 26, 26, 0.1) 0%, 
-        rgba(26, 26, 26, 0.9) 35%, 
-        var(--dark) 60%, 
-        var(--dark) 100%),
-        url('../assets/images/profile.jpg');
         
     background-size: cover; /* Foto menutupi area */
     background-position: left center; /* Fokus foto di kiri */
