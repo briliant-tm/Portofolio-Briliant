@@ -25,14 +25,22 @@
     </nav>
 
     <section class="about-section" style="
-        background: linear-gradient(to right, 
-            rgba(26, 26, 26, 0.2) 0%, 
-            rgba(26, 26, 26, 0.95) 40%, 
-            #1a1a1a 100%), 
-            url('assets/images/profile.jpg');
-        background-size: cover;
-        background-position: left center;
+        /* Layer 1: Gradien (Atas) */
+        background-image: linear-gradient(to right, 
+            rgba(26, 26, 26, 0.0) 0%,   /* 0% Transparan total (Wajah terlihat jelas) */
+            rgba(26, 26, 26, 0.1) 30%,  /* 30% Masih agak bening */
+            rgba(26, 26, 26, 0.9) 60%,  /* 60% Mulai gelap pekat buat teks */
+            #1a1a1a 100%),              /* 100% Solid Hitam (Ujung Kanan) */
+            
+        /* Layer 2: Gambar (Bawah) */
+        url('assets/images/profile.jpg');
+        
+        /* Pengaturan Posisi & Ukuran */
+        background-size: cover;         /* Memenuhi layar */
+        background-position: left center; /* PAKSA GAMBAR DI KIRI */
+        background-repeat: no-repeat;
         background-attachment: fixed;">
+        
         <div class="about-content">
             <div class="about-text-wrapper">
                 

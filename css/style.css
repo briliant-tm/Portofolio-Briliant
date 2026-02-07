@@ -380,20 +380,28 @@ ul { list-style: none; }
     background-attachment: fixed; /* Efek Parallax (Foto diam saat scroll) */
 }
 
-/* Container Konten (Hanya di sebelah Kanan) */
 .about-content {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: flex-end; /* Dorong konten ke KANAN */
+    justify-content: flex-end; /* PENTING: Dorong teks ke KANAN mentok */
     padding: 0 5%;
+    position: relative;
+    z-index: 2; /* Pastikan teks di atas background */
 }
 
+/* Pastikan lebar teks tidak terlalu lebar sampai menutupi foto */
 .about-text-wrapper {
-    width: 60%; /* Lebar area teks (sisanya 40% untuk foto di kiri) */
-    color: #ccc;
-    animation: fadeInRight 1s ease-out;
+    width: 55%; /* Hanya pakai separuh layar kanan */
+    /* Sisanya (45%) biarkan kosong untuk foto di kiri */
+}
+
+/* Responsif HP: Teks jadi lebar penuh */
+@media (max-width: 768px) {
+    .about-text-wrapper {
+        width: 100%;
+    }
 }
 
 @keyframes fadeInRight {
