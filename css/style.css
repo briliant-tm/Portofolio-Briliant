@@ -114,9 +114,15 @@ ul { list-style: none; }
 
 /* --- Background Animasi (Shared) --- */
 .hero-bg {
-    position: absolute;
+    /* GANTI INI DARI absolute KE fixed */
+    position: fixed; 
+    
     top: 0; left: 0;
-    width: 100%; height: 100%;
+    width: 100%; 
+    
+    /* GANTI INI DARI 100% KE 100vh */
+    height: 100vh; 
+    
     z-index: -2;
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
@@ -759,4 +765,247 @@ footer h4 {
     }
     
     .contact-form-wrapper { padding: 25px; }
+}
+
+/* ============================================================ */
+/* 9. PROJECTS SECTION (FILTERABLE GALLERY)                     */
+/* ============================================================ */
+.projects-section {
+    min-height: 100vh;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.projects-container {
+    width: 90%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+/* --- FILTER BUTTONS --- */
+.filter-menu {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.filter-btn:hover, 
+.filter-btn.active {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+}
+
+/* --- GRID SYSTEM --- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.project-item {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Kunci animasi saat filter berubah */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.project-card {
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    transition: 0.3s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* --- TIPE A: MUSIC CARD (Youtube Style) --- */
+.thumbnail-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* Rasio 16:9 Youtube */
+    background: #000;
+}
+
+.thumbnail-wrapper img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px; height: 60px;
+    background: rgba(0, 210, 255, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.music-card:hover img { opacity: 0.4; }
+.music-card:hover .play-overlay { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+
+.music-info {
+    padding: 20px;
+    text-align: left;
+}
+
+.music-info h3 { font-size: 1.1rem; color: #fff; margin-bottom: 5px; }
+.channel-name { color: #888; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+.channel-name i { color: #ff0000; } /* Warna Merah Youtube */
+
+
+/* --- TIPE B: STANDARD CARD (Network/Coding) --- */
+.standard-card .card-image {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+}
+
+.standard-card .card-body {
+    padding: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(0, 210, 255, 0.1);
+    color: var(--primary);
+    font-size: 0.75rem;
+    border-radius: 20px;
+    width: fit-content;
+    margin-bottom: 10px;
+}
+
+.standard-card h3 { font-size: 1.2rem; color: #fff; margin-bottom: 10px; }
+.standard-card p { font-size: 0.9rem; color: #bbb; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
+
+.btn-sm {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.btn-sm:hover { 
+    gap: 12px; color: #fff; 
+}
+/* --- UPDATE STYLE PROJECTS --- */
+
+/* 1. Tombol Tonton di Kartu Musik */
+.btn-watch {
+    margin-top: 15px; /* Jarak dari nama channel */
+    color: #fff;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.1); /* Latar agak terang */
+    padding: 8px 15px;
+    border-radius: 5px;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.btn-watch:hover {
+    background: #ff0000; /* Merah Youtube saat hover */
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* 2. Tombol Besar "Kunjungi Channel" */
+.channel-cta {
+    display: none;       /* <--- TAMBAHKAN INI (Wajib Sembunyi di Awal) */
+    
+    margin-top: 50px;
+    text-align: center;
+    /* Animation kita pindahkan ke JS biar tidak jalan sendiri pas load */
+}
+
+.channel-cta p {
+    color: #888;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+/* ... sisa kode tombol youtube (btn-youtube) biarkan sama ... */
+
+.btn-youtube {
+    background-color: #ff0000; /* Warna Merah Khas Youtube */
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    display: inline-flex; /* Agar ikon dan teks sejajar */
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+}
+
+.btn-youtube:hover {
+    background-color: #cc0000; /* Merah lebih gelap */
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.5);
+}
+
+/* --- Style Deskripsi Portfolio --- */
+.portfolio-desc {
+    color: #ccc;
+    text-align: center;
+    max-width: 700px;
+    margin: -20px auto 40px auto; /* Posisi di antara Judul dan Tombol Filter */
+    font-size: 1rem;
+    line-height: 1.6;
+    transition: opacity 0.3s ease; /* Animasi fade saat teks berubah */
+}
+
+/* Responsif di HP */
+@media (max-width: 768px) {
+    .portfolio-desc {
+        font-size: 0.9rem;
+        padding: 0 20px;
+    }
 }
