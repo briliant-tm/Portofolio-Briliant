@@ -238,55 +238,73 @@ ul { list-style: none; }
 
 /* --- UPDATE STYLE TOMBOL HOME --- */
 
-/* Wrapper Tombol agar Berjejer */
+/* --- KOMPONEN TOMBOL (FIXED) --- */
+
+/* 1. Tombol Utama (Solid - About Me) */
+.btn {
+    display: inline-block;
+    padding: 12px 35px;
+    background: var(--primary);     /* Warna Biru Neon */
+    color: #000;                    /* Teks Hitam biar kontras */
+    font-weight: 700;
+    text-decoration: none;          /* Hilangkan garis bawah link */
+    border-radius: 50px;            /* Sudut bulat */
+    border: 2px solid var(--primary); 
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); /* Efek glowing */
+    cursor: pointer;
+}
+
+/* Efek Hover Tombol Utama */
+.btn:hover {
+    background: transparent;        /* Jadi transparan */
+    color: var(--primary);          /* Teks jadi biru */
+    box-shadow: 0 0 25px rgba(0, 210, 255, 0.6);
+    transform: translateY(-3px);    /* Naik sedikit */
+}
+
+/* 2. Tombol Kedua (Outline - Contact) */
+/* Class ini menimpa sifat .btn biasa */
+.btn-secondary {
+    background: transparent;        /* Transparan dari awal */
+    color: #fff;                    /* Teks Putih */
+    border: 2px solid var(--primary);
+    box-shadow: none;               /* Tidak ada glowing di awal */
+    margin-left: 15px;              /* Jarak dari tombol sebelah kiri */
+}
+
+/* Efek Hover Tombol Kedua */
+.btn-secondary:hover {
+    background: rgba(0, 210, 255, 0.1); /* Biru tipis */
+    color: var(--primary);
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+    transform: translateY(-3px);
+}
+
+/* 3. Wrapper Tombol (Agar Rapi Berjejer) */
 .cta-group {
-    display: flex;         /* Membuat tombol sejajar horizontal */
-    gap: 15px;             /* Jarak antar tombol */
-    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
     
-    /* Animasi Muncul (Fade In Up) */
+    /* Animasi Muncul */
     opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
+    animation: fadeInUp 1s ease-out forwards;
     animation-delay: 0.8s;
 }
 
-/* Style Tombol Sekunder (Contact) - Gaya Outline/Transparan */
-.btn-secondary {
-    display: inline-block;
-    padding: 12px 30px;
-    background: transparent;           /* Latar transparan */
-    border: 2px solid var(--primary);  /* Garis tepi biru neon */
-    color: #fff;                       /* Teks putih */
-    border-radius: 50px;
-    font-weight: 600;
-    transition: var(--transition);
-    text-decoration: none;
-    /* Reset margin bawaan jika ada */
-    margin-top: 0; 
-    opacity: 1; /* Pastikan terlihat */
-    animation: none; /* Matikan animasi bawaan btn kalau double */
-}
-
-/* Efek Hover Tombol Sekunder */
-.btn-secondary:hover {
-    background: rgba(0, 210, 255, 0.15); /* Biru tipis saat disentuh */
-    color: var(--primary);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.2);
-}
-
-/* Responsif HP: Tombol jadi atas-bawah biar ga sempit */
+/* Responsif HP: Tombol Atas-Bawah */
 @media (max-width: 768px) {
     .cta-group {
-        flex-direction: column; /* Jadi vertikal di HP */
+        flex-direction: column;
         gap: 15px;
         width: 100%;
-        align-items: center; /* Rata tengah */
     }
     
     .btn, .btn-secondary {
-        width: 80%; /* Tombol melebar di HP */
+        width: 80%; /* Tombol lebar penuh di HP */
         text-align: center;
+        margin-left: 0; /* Reset margin */
     }
 }
 
