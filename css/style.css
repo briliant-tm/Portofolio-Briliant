@@ -236,27 +236,58 @@ ul { list-style: none; }
 .label-role { animation-delay: 0.4s; }
 .label-desc { animation-delay: 0.6s; }
 
-/* Tombol CTA */
+/* --- UPDATE STYLE TOMBOL HOME --- */
+
+/* Wrapper Tombol agar Berjejer */
 .cta-group {
-    margin-top: 10px;
+    display: flex;         /* Membuat tombol sejajar horizontal */
+    gap: 15px;             /* Jarak antar tombol */
+    margin-top: 25px;
+    
+    /* Animasi Muncul (Fade In Up) */
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: 0.8s;
 }
 
-.btn {
-    padding: 12px 35px;
-    background: var(--primary);
-    color: #000;
-    font-weight: 600;
-    border-radius: 50px;
-    transition: 0.3s;
+/* Style Tombol Sekunder (Contact) - Gaya Outline/Transparan */
+.btn-secondary {
     display: inline-block;
+    padding: 12px 30px;
+    background: transparent;           /* Latar transparan */
+    border: 2px solid var(--primary);  /* Garis tepi biru neon */
+    color: #fff;                       /* Teks putih */
+    border-radius: 50px;
+    font-weight: 600;
+    transition: var(--transition);
+    text-decoration: none;
+    /* Reset margin bawaan jika ada */
+    margin-top: 0; 
+    opacity: 1; /* Pastikan terlihat */
+    animation: none; /* Matikan animasi bawaan btn kalau double */
 }
 
-.btn:hover {
+/* Efek Hover Tombol Sekunder */
+.btn-secondary:hover {
+    background: rgba(0, 210, 255, 0.15); /* Biru tipis saat disentuh */
+    color: var(--primary);
     transform: translateY(-3px);
-    box-shadow: 0 5px 20px rgba(0, 210, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.2);
+}
+
+/* Responsif HP: Tombol jadi atas-bawah biar ga sempit */
+@media (max-width: 768px) {
+    .cta-group {
+        flex-direction: column; /* Jadi vertikal di HP */
+        gap: 15px;
+        width: 100%;
+        align-items: center; /* Rata tengah */
+    }
+    
+    .btn, .btn-secondary {
+        width: 80%; /* Tombol melebar di HP */
+        text-align: center;
+    }
 }
 
 /* --- INI YANG HILANG KEMARIN (KEYFRAMES FADE IN) --- */
