@@ -294,109 +294,20 @@ ul { list-style: none; }
 }
 
 /* Responsif HP: Tombol Atas-Bawah */
-/* --- RESPONSIVE MOBILE (OFF-CANVAS SLIDE) --- */
 @media (max-width: 768px) {
-    
-    /* 1. TOMBOL HAMBURGER (Agar tetap terlihat di atas menu) */
-    .hamburger {
-        display: block;
-        cursor: pointer;
-        position: relative; /* Agar z-index berfungsi */
-        z-index: 1001;      /* Paling depan, di atas menu */
-        margin-right: 10px;
-    }
-
-    /* 2. MENU NAVIGASI (Laci Samping) */
-    .nav-links {
-        position: fixed;      /* Mengunci menu di layar */
-        top: 0;
-        right: 0;             /* Mulai dari sisi KANAN */
-        height: 100vh;        /* Tinggi sepenuh layar HP */
-        width: 70%;           /* Lebar 70% layar (sisa 30% buat intip konten) */
-        
-        background: rgba(18, 18, 18, 0.98); /* Warna Gelap Pekat */
-        backdrop-filter: blur(10px);        /* Efek blur kaca */
-        box-shadow: -10px 0 30px rgba(0,0,0,0.5); /* Bayangan di sisi kiri menu */
-        
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 30px;
-        
-        /* LOGIKA ANIMASI: */
-        /* Mulai: Geser ke kanan 100% (Sembunyi di luar layar) */
-        transform: translateX(100%); 
-        opacity: 1; /* Opacity tetap 1, mainkan posisi saja */
-        
-        /* Transisi Smooth (Cubic Bezier biar tidak kaku) */
-        transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-        z-index: 1000;
-    }
-
-    /* 3. SAAT MENU AKTIF (Muncul) */
-    .nav-links.active {
-        /* Geser kembali ke posisi 0 (Masuk layar) */
-        transform: translateX(0%);
-    }
-
-    /* 4. Link di dalam Menu */
-    .nav-links li {
-        width: 100%;
-        text-align: center;
-        opacity: 0; /* Awalnya transparan */
-        
-        /* Animasi link muncul satu per satu */
-        transform: translateX(50px);
-        transition: 0.3s ease forwards;
-    }
-    
-    /* Delay agar link muncul setelah menu slide-in */
-    .nav-links.active li {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    
-    /* Urutan muncul link (Staggered Animation) */
-    .nav-links.active li:nth-child(1) { transition-delay: 0.2s; }
-    .nav-links.active li:nth-child(2) { transition-delay: 0.3s; }
-    .nav-links.active li:nth-child(3) { transition-delay: 0.4s; }
-    .nav-links.active li:nth-child(4) { transition-delay: 0.5s; }
-    .nav-links.active li:nth-child(5) { transition-delay: 0.6s; }
-
-    .nav-links a {
-        font-size: 1.3rem; /* Teks lebih besar */
-        display: block;
-        padding: 15px;
-    }
-
-    /* --- PERBAIKAN LAYOUT LAIN DI MOBILE --- */
-    .home-content-wrapper {
-        flex-direction: column;
-        margin-top: 20px;
-        text-align: center;
-    }
-    
-    .home-left, .home-right {
-        width: 100%;
-        justify-content: center;
-        text-align: center;
-    }
-    
-    .home-right { align-items: center; }
-    
-    /* Tombol CTA di Home */
     .cta-group {
         flex-direction: column;
+        gap: 15px;
         width: 100%;
-        align-items: center;
     }
     
     .btn, .btn-secondary {
-        width: 80%;
-        margin: 0;
+        width: 80%; /* Tombol lebar penuh di HP */
+        text-align: center;
+        margin-left: 0; /* Reset margin */
     }
 }
+
 /* --- INI YANG HILANG KEMARIN (KEYFRAMES FADE IN) --- */
 @keyframes fadeInUp {
     from {
