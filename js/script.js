@@ -1,108 +1,152 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. NAVIGASI AKTIF (Mendeteksi kita di halaman mana)
-    const currentLocation = window.location.pathname;
-    const navLinks = document.querySelectorAll('.nav-links a');
 
-    navLinks.forEach(link => {
-        // Logika: Jika link href ada di URL browser, beri warna aktif
-        if(link.href.includes(currentLocation) && currentLocation !== '/') {
-            link.classList.add('active');
-        }
-    });
+    /* =========================================
+       1. MOBILE NAVBAR (HAMBURGER MENU)
+       ========================================= */
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const navItems = document.querySelectorAll('.nav-links a');
 
-    // 2. EFEK MENGETIK (TYPING EFFECT) KHUSUS HALAMAN HOME
-    const roleElement = document.querySelector('.role-text');
-    
-    // Cek dulu: Apakah elemen ini ada? (Hanya ada di index.html)
-    if (roleElement) {
-        // --- INI TEKS YANG AKAN DIKETIK ---
-        const textToType = "Computer Network Engineering"; 
-        
-        let charIndex = 0;
-        roleElement.textContent = ""; // Kosongkan dulu teks bawaan HTML
-        
-        // Fungsi mengetik satu per satu
-        const typeWriter = () => {
-            if (charIndex < textToType.length) {
-                roleElement.textContent += textToType.charAt(charIndex);
-                charIndex++;
-                setTimeout(typeWriter, 100); // Kecepatan ketik (100ms per huruf)
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            // Toggle class 'active' untuk memunculkan menu
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+
+            // Ganti Ikon: Bars (Garis) <-> Times (Silang)
+            const icon = hamburger.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
             }
-        };
+        });
 
-        // Mulai mengetik setelah delay 0.5 detik (biar smooth)
-        setTimeout(typeWriter, 500);
+        // Tutup menu otomatis saat salah satu link diklik
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+                // Reset ikon kembali ke garis tiga
+                const icon = hamburger.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            });
+        });
     }
 
-    // 3. ANIMASI CARD MUNCUL (REVISI STABIL)
-    const skillCards = document.querySelectorAll('.skill-card');
+    /* =========================================
+       2. TYPING EFFECT (EFEK MENGETIK)
+       ========================================= */
+    const textElement = document.querySelector('.role-text');
     
+    if (textElement) {
+        const words = [
+            "Network Engineer", 
+            "Cybersecurity Enthusiast", 
+            "IT Support Specialist", 
+            "Music Producer"
+        ];
+        
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+
+        function type() {
+            const currentWord = words[wordIndex];
+            
+            if (isDeleting) {
+                // Menghapus huruf
+                textElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50; // Lebih cepat saat menghapus
+            } else {
+                // Mengetik huruf
+                textElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 150; // Normal saat mengetik
+            }
+
+            // Jika kata selesai diketik
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Tahan sebentar sebelum menghapus
+            } 
+            // Jika kata selesai dihapus
+            else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length; // Pindah ke kata berikutnya
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // Mulai mengetik
+        type();
+    }
+
+    /* =========================================
+       3. SCROLL ANIMATION (SKILLS & ABOUT)
+       ========================================= */
+    // Helper function untuk Intersection Observer
+    const createObserver = (targetSelector, activeClass = 'active', threshold = 0.2) => {
+        const elements = document.querySelectorAll(targetSelector);
+        
+        if (elements.length > 0) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add(activeClass);
+                        // Optional: Stop observe jika ingin animasi cuma sekali
+                        // observer.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: threshold });
+
+            elements.forEach((el, index) => {
+                // Tambahkan delay bertingkat (staggered) otomatis
+                // Kecuali jika elemen sudah punya style transition-delay sendiri (seperti di About)
+                if (!el.style.transitionDelay) {
+                     el.style.transitionDelay = `${index * 0.1}s`;
+                }
+                observer.observe(el);
+            });
+        }
+    };
+
+    // A. Animasi Kartu Skill (Fade Up)
+    // Pastikan di CSS .skill-card punya opacity: 0;
+    const skillCards = document.querySelectorAll('.skill-card');
     if (skillCards.length > 0) {
-        const observer = new IntersectionObserver((entries) => {
+        const skillObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // Jika card masuk ke layar
                 if (entry.isIntersecting) {
-                    // Tambahkan class .visible (biar CSS yang menganimasikan)
-                    entry.target.classList.add('visible');
-                    
-                    // Stop observe setelah muncul (biar ga kedip-kedip kalau scroll naik turun)
-                    observer.unobserve(entry.target);
+                    entry.target.classList.add('visible'); // Menggunakan class .visible
+                    skillObserver.unobserve(entry.target);
                 }
             });
-        }, { 
-            threshold: 0.15 // Muncul ketika 15% card terlihat
-        });
+        }, { threshold: 0.15 });
 
         skillCards.forEach((card, index) => {
-            // Kita set delay transisi via JS agar staggered (berurutan)
-            // Card 1: 0.1s, Card 2: 0.2s, dst...
             card.style.transition = `opacity 0.6s ease-out, transform 0.6s ease-out`;
-            card.style.transitionDelay = `${index * 0.1}s`; 
-            
-            observer.observe(card);
+            card.style.transitionDelay = `${index * 0.1}s`;
+            skillObserver.observe(card);
         });
     }
 
-    // 4. ANIMASI HALAMAN ABOUT (Staggered Animation)
-    // Cek apakah kita ada di halaman About?
-    const aboutSection = document.querySelector('.about-section');
+    // B. Animasi Halaman About (Text Slide & Timeline)
+    // Menggunakan class 'reveal-text' dan 'timeline-item' yang kita buat tadi
+    createObserver('.reveal-text', 'active', 0.1);
+    createObserver('.timeline-item', 'active', 0.3);
+    
+    // C. Animasi Hobi (Pop Up)
+    // Trigger hobi sedikit lebih lambat
+    setTimeout(() => {
+        createObserver('.hobby-tag', 'active', 0.1);
+    }, 500);
 
-    if (aboutSection) {
-        
-        // A. Animasi Teks Utama (Judul & Deskripsi)
-        const textElements = document.querySelectorAll('.reveal-text');
-        textElements.forEach((el, index) => {
-            setTimeout(() => {
-                el.classList.add('active');
-            }, 200 + (index * 100)); // Delay bertahap: 200ms, 300ms, dst
-        });
-
-        // B. Animasi Timeline (Muncul satu per satu)
-        const timelineItems = document.querySelectorAll('.timeline-item');
-        const timelineObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.5 }); // Muncul saat 50% terlihat
-
-        timelineItems.forEach((item, index) => {
-            // Beri delay sedikit biar tidak barengan
-            item.style.transitionDelay = `${index * 0.2}s`;
-            timelineObserver.observe(item);
-        });
-
-        // C. Animasi Hobi (Pop-up Cepat)
-        const hobbyTags = document.querySelectorAll('.hobby-tag');
-        // Kita trigger langsung saja setelah teks selesai
-        setTimeout(() => {
-            hobbyTags.forEach((tag, index) => {
-                setTimeout(() => {
-                    tag.classList.add('active');
-                }, index * 100); // Pop.. pop.. pop.. setiap 100ms
-            });
-        }, 1000); // Tunggu 1 detik setelah halaman load
-    }
 });

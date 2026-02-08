@@ -572,25 +572,98 @@ footer h4 {
     color: #444;
 }
 
-/* --- RESPONSIVE MOBILE --- */
+/* --- RESPONSIVE MOBILE (NAVBAR FIX) --- */
 @media (max-width: 768px) {
-    .nav-links { display: none; } /* Hilangkan menu desktop */
-    .hamburger { display: block; } /* Munculkan tombol garis tiga */
     
-    .home-content h1 { font-size: 2rem; }
-    
-    /* Footer Rata Tengah di HP */
-    .footer-container {
-        flex-direction: column;
+    /* 1. Tampilkan Tombol Hamburger */
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        z-index: 1001; /* Pastikan di atas segalanya */
+        font-size: 1.5rem;
+        color: #fff;
+    }
+
+    /* 2. Sembunyikan Menu Desktop & Ubah Jadi Mobile Style */
+    .nav-links {
+        position: absolute;
+        top: 70px; /* Muncul tepat di bawah navbar */
+        left: 0;
+        width: 100%;
+        background-color: rgba(18, 18, 18, 0.98); /* Background Gelap Pekat */
+        backdrop-filter: blur(10px); /* Efek blur di belakang menu */
+        
+        display: flex;
+        flex-direction: column; /* Susun menu ke bawah */
         align-items: center;
+        justify-content: center;
+        
+        padding: 40px 0;
+        gap: 25px; /* Jarak antar menu */
+        
+        /* Animasi: Default Sembunyi ke Atas */
+        transform: translateY(-150%); 
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efek mantul dikit */
+        z-index: 1000;
+        pointer-events: none; /* Agar tidak bisa diklik pas sembunyi */
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* 3. Class Active: Saat Menu Dibuka */
+    .nav-links.active {
+        transform: translateY(0); /* Turun ke posisi normal */
+        opacity: 1;
+        pointer-events: all; /* Aktifkan klik */
+    }
+
+    /* Style Link di Mobile */
+    .nav-links li {
+        width: 100%;
         text-align: center;
     }
-    .footer-left, .footer-right { text-align: center; }
-    .contact-list li { justify-content: center; }
-    .social-simple a { margin: 0 8px; }
-}
 
-/* --- ANIMASI KHUSUS ABOUT ME --- */
+    .nav-links a {
+        font-size: 1.2rem;
+        display: block;
+        padding: 10px;
+    }
+    
+    /* Efek Hover di HP */
+    .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--primary);
+    }
+    
+    /* Animasi Ikon Hamburger Berputar */
+    .hamburger i {
+        transition: transform 0.3s ease;
+    }
+    
+    .hamburger.active i {
+        transform: rotate(180deg); /* Putar ikon saat jadi 'X' */
+        color: var(--primary);
+    }
+    
+    /* Perbaikan Layout Home di HP */
+    .home-content-wrapper {
+        flex-direction: column;
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    .home-left, .home-right {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .home-right { align-items: center; }
+    
+    .about-section {
+        background-position: center top !important; /* Foto about di tengah atas */
+    }
+}
 
 /* 1. FIX POSISI BACKGROUND (Jurus Paksa) */
 .about-section {
