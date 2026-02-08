@@ -9,11 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (hamburger && navLinks) {
         hamburger.addEventListener('click', () => {
-            // Toggle class 'active' untuk memunculkan menu
             navLinks.classList.toggle('active');
             hamburger.classList.toggle('active');
 
-            // Ganti Ikon: Bars (Garis) <-> Times (Silang)
             const icon = hamburger.querySelector('i');
             if (navLinks.classList.contains('active')) {
                 icon.classList.remove('fa-bars');
@@ -24,12 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Tutup menu otomatis saat salah satu link diklik
+        // Tutup menu saat link diklik
         navItems.forEach(item => {
             item.addEventListener('click', () => {
                 navLinks.classList.remove('active');
                 hamburger.classList.remove('active');
-                // Reset ikon kembali ke garis tiga
                 const icon = hamburger.querySelector('i');
                 icon.classList.add('fa-bars');
                 icon.classList.remove('fa-times');
@@ -41,15 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
        2. TYPING EFFECT (EFEK MENGETIK)
        ========================================= */
     const textElement = document.querySelector('.role-text');
-    
     if (textElement) {
-        const words = [
-            "Network Engineer", 
-            "Cybersecurity Enthusiast", 
-            "IT Support Specialist", 
-            "Music Producer"
-        ];
-        
+        const words = ["Network Engineer", "Cybersecurity Enthusiast", "IT Support Specialist", "Music Producer"];
         let wordIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -57,59 +47,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function type() {
             const currentWord = words[wordIndex];
-            
             if (isDeleting) {
-                // Menghapus huruf
                 textElement.textContent = currentWord.substring(0, charIndex - 1);
                 charIndex--;
-                typeSpeed = 50; // Lebih cepat saat menghapus
+                typeSpeed = 50;
             } else {
-                // Mengetik huruf
                 textElement.textContent = currentWord.substring(0, charIndex + 1);
                 charIndex++;
-                typeSpeed = 150; // Normal saat mengetik
+                typeSpeed = 150;
             }
 
-            // Jika kata selesai diketik
             if (!isDeleting && charIndex === currentWord.length) {
                 isDeleting = true;
-                typeSpeed = 2000; // Tahan sebentar sebelum menghapus
-            } 
-            // Jika kata selesai dihapus
-            else if (isDeleting && charIndex === 0) {
+                typeSpeed = 2000;
+            } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length; // Pindah ke kata berikutnya
+                wordIndex = (wordIndex + 1) % words.length;
                 typeSpeed = 500;
             }
-
             setTimeout(type, typeSpeed);
         }
-
-        // Mulai mengetik
         type();
     }
 
     /* =========================================
        3. SCROLL ANIMATION (SKILLS & ABOUT)
        ========================================= */
-    // Helper function untuk Intersection Observer
     const createObserver = (targetSelector, activeClass = 'active', threshold = 0.2) => {
         const elements = document.querySelectorAll(targetSelector);
-        
         if (elements.length > 0) {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add(activeClass);
-                        // Optional: Stop observe jika ingin animasi cuma sekali
-                        // observer.unobserve(entry.target); 
                     }
                 });
             }, { threshold: threshold });
 
             elements.forEach((el, index) => {
-                // Tambahkan delay bertingkat (staggered) otomatis
-                // Kecuali jika elemen sudah punya style transition-delay sendiri (seperti di About)
                 if (!el.style.transitionDelay) {
                      el.style.transitionDelay = `${index * 0.1}s`;
                 }
@@ -118,14 +93,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // A. Animasi Kartu Skill (Fade Up)
-    // Pastikan di CSS .skill-card punya opacity: 0;
+    // Trigger Animasi
     const skillCards = document.querySelectorAll('.skill-card');
     if (skillCards.length > 0) {
         const skillObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible'); // Menggunakan class .visible
+                    entry.target.classList.add('visible');
                     skillObserver.unobserve(entry.target);
                 }
             });
@@ -138,31 +112,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // B. Animasi Halaman About (Text Slide & Timeline)
-    // Menggunakan class 'reveal-text' dan 'timeline-item' yang kita buat tadi
     createObserver('.reveal-text', 'active', 0.1);
     createObserver('.timeline-item', 'active', 0.3);
-    
-    // C. Animasi Hobi (Pop Up)
-    // Trigger hobi sedikit lebih lambat
-    setTimeout(() => {
-        createObserver('.hobby-tag', 'active', 0.1);
-    }, 500);
+    setTimeout(() => { createObserver('.hobby-tag', 'active', 0.1); }, 500);
 
-    const currentPage = window.location.pathname.split("/").pop();
-    const menuLinks = document.querySelectorAll('nav-links a');
 
-    menuLinks.forEach(link => {        
+    /* =========================================
+       4. AUTO ACTIVE LINK (SOLUSI BUG NAVBAR)
+       ========================================= */
+    // Logika: Ambil nama file dari URL browser, lalu cari link yang cocok
+    const currentPage = window.location.pathname.split("/").pop(); // Ambil misal "about.html"
+    const menuLinks = document.querySelectorAll('.nav-links a');
+
+    menuLinks.forEach(link => {
+        // Ambil href dari link (misal "about.html")
         const linkPage = link.getAttribute('href');
 
+        // Jika URL browser kosong (root) atau index.html, tandai Home
         if ((currentPage === '' || currentPage === 'index.html') && linkPage === 'index.html') {
             link.classList.add('active');
         }
-
-        else if (currentPage == linkPage) {
+        // Untuk halaman lain (About, Skills, dll)
+        else if (currentPage === linkPage) {
             link.classList.add('active');
         }
-    })
-});
+    });
 
-            
+});
