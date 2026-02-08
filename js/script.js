@@ -149,4 +149,20 @@ document.addEventListener('DOMContentLoaded', () => {
         createObserver('.hobby-tag', 'active', 0.1);
     }, 500);
 
+    const currentPage = window.location.pathname.split("/").pop();
+    const menuLinks = document.querySelectorAll('nav-links a');
+
+    menuLinks.forEach(link => {        
+        const linkPage = link.getAttribute('href');
+
+        if ((currentPage === '' || currentPage === 'index.html') && linkPage === 'index.html') {
+            link.classList.add('active');
+        }
+
+        else if (currentPage == linkPage) {
+            link.classList.add('active');
+        }
+    })
 });
+
+            
